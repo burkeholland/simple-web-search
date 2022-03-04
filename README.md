@@ -1,3 +1,4 @@
+
 # Simple Web Search
 
 Start a web search from VS Code.
@@ -20,8 +21,12 @@ Too awesome.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.2
+
+Made the icon transparent. Googled icon size FROM VS Code. 🐶🍔
 
 ### 0.0.1
 
 Just ship it 🐿
+
+
