@@ -10,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 
-	let disposable = vscode.commands.registerCommand('simple-web-search.searchWeb', async () => {
+	let searchWebCommand = vscode.commands.registerCommand('simple-web-search.searchWeb', async () => {
 		let searchEngine = vscode.workspace.getConfiguration().get("simpleWebSearch.searchEngine");
 
 		let searchTerm = await vscode.window.showInputBox({
@@ -22,7 +22,24 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(searchWebCommand);
+
+	let searchWebWithSelectionCommand = vscode.commands.registerCommand("simple-web-search.searchWebWithSelection", async () => {
+		let searchEngine = vscode.workspace.getConfiguration().get("simpleWebSearch.searchEngine");
+
+		const activeEditor = vscode.window.activeTextEditor;
+
+		if (activeEditor) {
+			const selection = activeEditor.document.getText(activeEditor.selection);
+
+			if (selection) {
+				vscode.env.openExternal(vscode.Uri.parse(`https://www.${searchEngine}.com/search?q=${selection}`));
+			}
+		}
+
+	});
+
+	context.subscriptions.push(searchWebWithSelectionCommand);
 }
 
 // this method is called when your extension is deactivated

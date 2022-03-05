@@ -2,7 +2,7 @@
 	"name": "simple-web-search",
 	"displayName": "Simple Web Search",
 	"description": "Search the web from within VS Code",
-	"version": "0.0.2",
+	"version": "0.0.4",
 	"publisher": "burkeholland",
 	"repository": {
 		"url": "https://github.com/burkeholland/simple-web-search"
@@ -14,7 +14,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:simple-web-search.searchWeb"
+		"onCommand:simple-web-search.searchWeb",
+		"onCommand:simple-web-search.searchWebWithSelection"
 	],
 	"icon": "logo.png",
 	"main": "./dist/extension.js",
@@ -28,9 +29,10 @@
 					"type": "string",
 					"default": "google",
 					"enum": [
-						"google",
 						"bing",
 						"duckduckgo",
+						"google",
+						"stackoverflow",
 						"yahoo"
 					]
 				}
@@ -39,9 +41,21 @@
 		"commands": [
 			{
 				"command": "simple-web-search.searchWeb",
-				"title": "Simple Web Search: Search"
+				"title": "Search the Web"
+			},
+			{
+				"command": "simple-web-search.searchWebWithSelection",
+				"title": "Search web with Selection"
 			}
-		]
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "editorHasSelection",
+					"command": "simple-web-search.searchWebWithSelection"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",
